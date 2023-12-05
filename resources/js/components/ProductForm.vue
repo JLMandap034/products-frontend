@@ -33,6 +33,9 @@
     import axios from 'axios';
 
     export default {
+        props: {
+            api: String
+        },
         data() {
             return {
                 categories: [],
@@ -61,7 +64,7 @@
         } ,
         async created() {
             if (!this.isNewProduct) {
-                const response = await axios.get(`http://exam-api.test/api/products/${this.$route.params.id}`);
+                const response = await axios.get(this.api+`products/${this.$route.params.id}`);
                 this.product = response.data;
             }
             this.getCategories();
@@ -81,7 +84,7 @@
         methods: {
             async getCategories() {
                 try {
-                    const response = await axios.get('http://exam-api.test/api/categories');
+                    const response = await axios.get(this.api+'categories');
                     this.categories = response.data;
                 } catch (error) {
                     console.error(error);
@@ -91,9 +94,9 @@
                 this.product.description = $('#summernote_text').val();
                 try {
                     if (this.isNewProduct) {
-                        await axios.post('http://exam-api.test/api/products', this.product);
+                        await axios.post(this.api+'products', this.product);
                     } else {
-                        await axios.put(`http://exam-api.test/api/products/${this.$route.params.id}`, this.product);
+                        await axios.put(this.api+`products/${this.$route.params.id}`, this.product);
                     }
                     this.$router.push('/');
                 } catch (error) {

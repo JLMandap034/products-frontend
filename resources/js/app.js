@@ -37,15 +37,16 @@ import Product from './components/Product.vue';
  * an "id" attribute of "app". This element is included with the "auth"
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
+const api = "http://exam-api.test/api/";
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/', component: ProductList },
-        { path: '/products', component: ProductList },
-        { path: '/products/create', component: ProductForm },
-        { path: '/products/:id', component: Product },
-        { path: '/products/:id/edit', component: ProductForm },
+        { path: '/', component: ProductList, props: { api: api } },
+        { path: '/products', component: ProductList, props: { api: api } },
+        { path: '/products/create', component: ProductForm, props: { api: api } },
+        { path: '/products/:id', component: Product, props: { api: api } },
+        { path: '/products/:id/edit', component: ProductForm, props: { api: api } },
     ]
 });
 const app = createApp(App);

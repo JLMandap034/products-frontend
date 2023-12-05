@@ -59,6 +59,9 @@
     import axios from 'axios';
 
     export default {
+        props: {
+            api: String
+        },
         data() {
             return {
                 search: '',
@@ -89,7 +92,7 @@
                         this.search = '';
                         this.category_id = '';
                     }
-                    const response = await axios.get('http://exam-api.test/api/products', {
+                    const response = await axios.get(this.api+'products', {
                         params: { page, search: this.search, category_id: this.category_id }
                     });
                     this.pagination = response.data;
@@ -100,7 +103,7 @@
             },
             async deleteProduct(id) {
                 try {
-                    await axios.delete(`http://exam-api.test/api/products/${id}`);
+                    await axios.delete(this.api+`products/${id}`);
                     this.products = this.products.filter(product => product.id !== id);
                 } catch (error) {
                     console.error(error);
@@ -108,7 +111,7 @@
             },
             async getCategories() {
                 try {
-                    const response = await axios.get('http://exam-api.test/api/categories');
+                    const response = await axios.get(this.api+'categories');
                     this.categories = response.data;
                 } catch (error) {
                     console.error(error);

@@ -18,6 +18,9 @@
 <script>
 	import axios from 'axios';
 	export default {
+        props: {
+            api: String
+        },
 		data() {
 			return {
 				product: {}
@@ -25,7 +28,7 @@
 		},
 		async created() {
 			try {
-			const response = await axios.get(`http://exam-api.test/api/products/${this.$route.params.id}`);
+			const response = await axios.get(this.api+`products/${this.$route.params.id}`);
 			this.product = response.data;
 			} catch (error) {
 			console.error(error);
